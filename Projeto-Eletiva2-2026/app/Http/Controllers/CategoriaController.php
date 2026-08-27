@@ -12,7 +12,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+        return view('categoria.index', compact('categorias'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categoria.create');
     }
 
     /**
@@ -28,38 +29,51 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Categoria::create($request->all()))
+            return redirect()->route('/categorias')->with('mensagem', 'Caregoria inserida com sucesso!');
+        else    
+            return redirect()->route('/categorias')->with('mensagem', "Erro ao iserir a caregoria!");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Categoria $categoria)
+    public function show(string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view ('categoria.show', compact('categoria'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit(string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view ('categoria.edit', compact('categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, string $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        if($categoria->update($request->all()))
+            return redirect()->route('/categorias')->with('mensagem', 'Categoria alterada com sucesso!');
+        else
+            return redirect()->route('/categorias')->with('mensagem', 'Erro ao alterar a categoria!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(string $id)
     {
-        //
+        $categorias = Categoria::findOrFail($id);
+        if($categorias->delete())
+            return redirect()->route('/cattegorias')->with('mensagem', 'Categoria excluída!');
+        else
+            return redirect()->route('/categorias')->with('mensagem', 'Erro ao excluir a categoria');
     }
 }
