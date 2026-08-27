@@ -30,9 +30,9 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         if(Categoria::create($request->all()))
-            return redirect()->route('/categorias')->with('mensagem', 'Caregoria inserida com sucesso!');
+            return redirect()->route('categorias.index')->with('mensagem', 'Caregoria inserida com sucesso!');
         else    
-            return redirect()->route('/categorias')->with('mensagem', "Erro ao iserir a caregoria!");
+            return redirect()->route('categorias.index')->with('mensagem', "Erro ao iserir a caregoria!");
     }
 
     /**
@@ -60,9 +60,9 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::findOrFail($id);
         if($categoria->update($request->all()))
-            return redirect()->route('/categorias')->with('mensagem', 'Categoria alterada com sucesso!');
+            return redirect()->route('categorias.index')->with('mensagem', 'Categoria alterada com sucesso!');
         else
-            return redirect()->route('/categorias')->with('mensagem', 'Erro ao alterar a categoria!');
+            return redirect()->route('categorias.index')->with('mensagem', 'Erro ao alterar a categoria!');
     }
 
     /**
@@ -72,8 +72,8 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::findOrFail($id);
         if($categorias->delete())
-            return redirect()->route('/cattegorias')->with('mensagem', 'Categoria excluída!');
+            return redirect()->route('categorias.index')->with('mensagem', 'Categoria excluída!');
         else
-            return redirect()->route('/categorias')->with('mensagem', 'Erro ao excluir a categoria');
+            return redirect()->route('categorias.index')->with('mensagem', 'Erro ao excluir a categoria');
     }
 }
