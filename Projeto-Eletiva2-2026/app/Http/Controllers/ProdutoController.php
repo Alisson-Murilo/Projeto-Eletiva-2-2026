@@ -41,7 +41,8 @@ class ProdutoController extends Controller
      */
     public function show(string $id)
     {
-
+        $produto = Produto::findOrFail($id);
+        return view('produto.show', compact('produto'));
     }
 
     /**
@@ -69,6 +70,8 @@ class ProdutoController extends Controller
      */
     public function destroy(string $id)
     {
-
+        $produto = Produto::findOrFail($id);
+        $produto->delete();
+        return redirect()->route('produto.index');
     }
 }
